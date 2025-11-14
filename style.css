@@ -1,0 +1,150 @@
+:root {
+  --primary: #4caf50;
+  --secondary: #ffc107;
+  --bg-color: #f4f4f9;
+  --text-color: #333;
+  --board-border: #9e9e9e; /*Color for the main board border and cell lines*/
+  --cell-hover: #e8f5e9;
+  --line-thickness: 3px; /*Define a variable for line thickness*/
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+/*Game Board Layout*/
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  /*Removed gap to use border for solid line*/
+  border: var(--line-thickness) solid var(--board-border);
+  width: 100%;
+  max-width: 300%;
+  height: 300px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-sizing: border-box;
+  overflow: hidden; /*Ensures borders dont exceed the rounded corners*/
+}
+
+.cell {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  /* Removed border radius  from individual cell to allow solid line */
+
+  /* Add solid borders between cells */
+  border-right: var(--line-thickness) solid var(--board-border);
+  border-bottom: var(--line-thickness) solid var(--board-border);
+}
+/* remove right border for cells in the third column */
+.cell:nth-child(3n) {
+  border-right: none;
+}
+/* remove bottom border for cells in the third row */
+.cell:nth-child(n + 7) {
+  /* select cell 7 8 9 */
+  border-bottom: none;
+}
+
+.cell:hover:not(.marked) {
+  background-color: var(--cell-hover);
+  transform: scale(1.02s);
+}
+/* Styling for X and O marks */
+.cell.marked {
+  cursor: default;
+}
+
+.cell.X {
+  color: red;
+}
+
+.cell.O {
+  color: green;
+}
+/* Message  Display */
+#message {
+  min-height: 30px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  font-weight: 700;
+}
+/* Button Styling */
+button {
+  background-color: var(--secondary);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #ffeb3b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 450px) {
+  .container {
+    padding: 20px;
+  }
+  #game-board {
+    width: 90vw;
+    height: 90vw;
+    max-width: 300px;
+    max-height: 300px;
+  }
+  .cell {
+    font-size: 2.5rem;
+  }
+  #message {
+    font-size: 1rem;
+  }
+}
